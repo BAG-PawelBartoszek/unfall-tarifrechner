@@ -31,16 +31,15 @@ Jede Person kostet grundsätzlich 5,-€ Prämie. Die Pfefferminzia versichert f
 * Wir entwerfen eine Nutzeroberfläche zur Eingabe und Anzeige der Daten.
 
 ### Technische Vorgaben
-* Java 25
+* Java
 * REST Service
-* Spring Boot 2.4.1
+* Spring Boot
 * Maven
-* JUnit 5
+* JUnit
 * JPA
 * H2
-* Lombok
 * Swagger
-* Angular 20
+* Angular
 * Angular Material
 
 ### Mock up
