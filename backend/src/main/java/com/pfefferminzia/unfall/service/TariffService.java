@@ -22,6 +22,14 @@ public class TariffService {
 
     public Contract calculate(Contract contract) {
         double contractSum = 0.0;
+        for (Person p : contract.getPersons()) {
+            double personSum = BASE_PERSON_PREMIUM;
+            for (Coverage c : p.getCoverages()) {
+                personSum += c.getPremiumMonthly();
+            }
+            p.setMonthlyPremium(round2(personSum));
+            contractSum += personSum;
+        }
         contract.setTotalMonthlyPremium(round2(contractSum));
         return contract;
     }
