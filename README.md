@@ -44,4 +44,5 @@ Jede Person kostet grundsätzlich 5,-€ Prämie. Die Pfefferminzia versichert f
 
 ### Mock up
 Die Oberfläche kann sich am folgenden Mockup orientieren:
+
 ![Mockup](assets/mockup.png)
