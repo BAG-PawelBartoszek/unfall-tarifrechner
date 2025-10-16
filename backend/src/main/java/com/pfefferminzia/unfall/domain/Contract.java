@@ -1,32 +1,35 @@
 package com.pfefferminzia.unfall.domain;
 
 import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Contract {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  private String contractNumber;
+    private String contractNumber;
 
-  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "contract_id")
-  private List<Person> persons = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "contract_id")
+    private List<Person> persons = new ArrayList<>();
 
-  private double totalMonthlyPremium;
+    private double totalMonthlyPremium;
 
     public Contract() {
+        this.calculateTotalMonthlyPremium();
     }
 
-    public Contract(Long id, String contractNumber, List<Person> persons, double totalMonthlyPremium) {
+    public Contract(Long id, String contractNumber, List<Person> persons) {
         this.id = id;
         this.contractNumber = contractNumber;
         this.persons = persons;
-        this.totalMonthlyPremium = totalMonthlyPremium;
+
+        this.calculateTotalMonthlyPremium();
     }
 
     public Long getId() {
@@ -57,7 +60,16 @@ public class Contract {
         return totalMonthlyPremium;
     }
 
-    public void setTotalMonthlyPremium(double totalMonthlyPremium) {
-        this.totalMonthlyPremium = totalMonthlyPremium;
+    public void calculateTotalMonthlyPremium() {
+        this.totalMonthlyPremium = round2(this.persons.stream().mapToDouble(Person::getMonthlyPremium).sum());
+    }
+
+    private double round2(double v) {
+        return Math.round(v * 100.0) / 100.0;
+    }
+
+    public void addPerson(Person person) {
+        this.persons.add(person);
+        this.calculateTotalMonthlyPremium();
     }
 }

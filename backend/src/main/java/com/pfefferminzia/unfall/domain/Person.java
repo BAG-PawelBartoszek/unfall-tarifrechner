@@ -1,34 +1,38 @@
 package com.pfefferminzia.unfall.domain;
 
 import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Person {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+    private static final double BASE_PERSON_PREMIUM = 5.00;
 
-  private String firstName;
-  private String lastName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "person_id")
-  private List<Coverage> coverages = new ArrayList<>();
+    private String firstName;
+    private String lastName;
 
-  private double monthlyPremium;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "person_id")
+    private List<Coverage> coverages = new ArrayList<>();
+
+    private double monthlyPremium;
 
     public Person() {
+        calculateTotalMonthlyPremium();
     }
 
-    public Person(Long id, String firstName, String lastName, List<Coverage> coverages, double monthlyPremium) {
+    public Person(Long id, String firstName, String lastName, List<Coverage> coverages) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.coverages = coverages;
-        this.monthlyPremium = monthlyPremium;
+        calculateTotalMonthlyPremium();
     }
 
     public Long getId() {
@@ -59,15 +63,18 @@ public class Person {
         return coverages;
     }
 
-    public void setCoverages(List<Coverage> coverages) {
-        this.coverages = coverages;
-    }
-
     public double getMonthlyPremium() {
-        return monthlyPremium;
+        this.calculateTotalMonthlyPremium();
+        return this.monthlyPremium;
     }
 
-    public void setMonthlyPremium(double monthlyPremium) {
-        this.monthlyPremium = monthlyPremium;
+    public void calculateTotalMonthlyPremium() {
+        double sumOfMonthlyPremiums = this.coverages.stream().mapToDouble(Coverage::getPremiumMonthly).sum();
+        this.monthlyPremium = Double.sum(BASE_PERSON_PREMIUM,sumOfMonthlyPremiums);
+    }
+
+    public void addCoverage(Coverage coverage) {
+        this.coverages.add(coverage);
+        this.calculateTotalMonthlyPremium();
     }
 }
