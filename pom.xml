@@ -12,7 +12,6 @@
 
     <modules>
         <module>backend</module>
-        <module>frontend</module>
     </modules>
 
     <properties>
