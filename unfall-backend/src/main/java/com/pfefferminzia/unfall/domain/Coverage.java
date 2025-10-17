@@ -1,5 +1,6 @@
 package com.pfefferminzia.unfall.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -7,6 +8,7 @@ public class Coverage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -33,5 +35,9 @@ public class Coverage {
 
     public double getInsuredSum() {
         return this.type.getInsuredSum();
+    }
+
+    public CoverageType getType() {
+        return type;
     }
 }
