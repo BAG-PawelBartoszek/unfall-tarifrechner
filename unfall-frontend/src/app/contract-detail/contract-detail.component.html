@@ -1,1 +1,72 @@
-<p>contract-detail works!</p>
+<div class="contract-detail-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ isNew ? 'Neuer Vertrag' : 'Vertrag bearbeiten' }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <mat-form-field appearance="outline">
+          <mat-label>Vertragsnummer</mat-label>
+          <input matInput formControlName="contractNumber" required>
+        </mat-form-field>
+
+        <h3>Personen</h3>
+        <div formArrayName="persons">
+          @for (person of persons.controls; track $index) {
+            <mat-card class="person-card" [formGroupName]="$index">
+              <mat-card-header>
+                <mat-card-title>Person {{ $index + 1 }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="person-fields">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Vorname</mat-label>
+                    <input matInput formControlName="firstName" required>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Nachname</mat-label>
+                    <input matInput formControlName="lastName" required>
+                  </mat-form-field>
+                </div>
+
+                <h4>Leistungsarten</h4>
+                <div formArrayName="coverages">
+                  @for (coverage of getCoverages($index).controls; track $index) {
+                    <div [formGroupName]="$index" class="coverage-row">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Leistungsart</mat-label>
+                        <mat-select formControlName="type" required>
+                          @for (type of coverageTypes; track type) {
+                            <mat-option [value]="type">{{ coverageLabel(type) }}</mat-option>
+                          }
+                        </mat-select>
+                      </mat-form-field>
+                      <button mat-icon-button type="button" color="warn" (click)="removeCoverage($index, $index)">
+                        ✕
+                      </button>
+                    </div>
+                  }
+                </div>
+                <button mat-stroked-button type="button" (click)="addCoverage($index)">
+                  Leistungsart hinzufügen
+                </button>
+              </mat-card-content>
+              <button mat-button type="button" color="warn" (click)="removePerson($index)">
+                Person entfernen
+              </button>
+            </mat-card>
+          }
+        </div>
+
+        <button mat-raised-button type="button" color="accent" (click)="addPerson()">
+          Person hinzufügen
+        </button>
+
+        <div class="actions">
+          <button mat-raised-button type="submit" color="primary">Speichern</button>
+          <button mat-button type="button" (click)="cancel()">Abbrechen</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

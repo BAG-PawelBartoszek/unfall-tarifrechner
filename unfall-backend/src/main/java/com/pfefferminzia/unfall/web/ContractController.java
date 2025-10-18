@@ -65,7 +65,7 @@ public class ContractController {
             content = @Content
     )
     public ResponseEntity<Contract> getById(@Parameter(description = "Unique identifier of the contract", required = true, example = "1")
-                                            @PathVariable Long id) {
+                                            @PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(tariffService.getById(id));
         } catch (Exception e) {
@@ -73,7 +73,7 @@ public class ContractController {
         }
     }
 
-    @PostMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(
             summary = "Create a new contract",
             description = "Create a new contract and save it in the database"
@@ -102,7 +102,8 @@ public class ContractController {
             description = "Contract not found",
             content = @Content
     )
-    public ResponseEntity<Contract> update(@PathVariable Long id) {
+    public ResponseEntity<Contract> update(@Parameter(description = "Unique identifier of the contract", required = true, example = "1")
+                                           @PathVariable("id") Long id) {
         try {
             Contract updated = tariffService.recalculateAndSave(id);
             return ResponseEntity.ok(updated);
