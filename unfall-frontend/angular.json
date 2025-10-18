@@ -13,7 +13,10 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "outputPath": "dist/unfall-frontend",
+            "index": "src/index.html",
             "browser": "src/main.ts",
+            "polyfills": [],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
@@ -24,7 +27,8 @@
             "styles": [
               "src/custom-theme.scss",
               "src/styles.css"
-            ]
+            ],
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -52,18 +56,27 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "buildTarget": "unfall-frontend:build:development",
+            "proxyConfig": "proxy.conf.json"
+          },
           "configurations": {
             "production": {
-              "buildTarget": "unfall-frontend:build:production"
+              "buildTarget": "unfall-frontend:build:production",
+              "proxyConfig": "proxy.conf.json"
             },
             "development": {
-              "buildTarget": "unfall-frontend:build:development"
+              "buildTarget": "unfall-frontend:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
+          "builder": "@angular/build:extract-i18n",
+          "options": {
+            "buildTarget": "unfall-frontend:build"
+          }
         },
         "test": {
           "builder": "@angular/build:karma",

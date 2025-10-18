@@ -1,0 +1,28 @@
+
+<div class="contract-list-container">
+  <div class="header">
+    <h2>Verträge</h2>
+    <button mat-raised-button color="primary" (click)="createNew()">
+      Neuer Vertrag
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="loading">Lade Verträge...</div>
+  }
+
+  @if (!loading && contracts.length === 0) {
+    <div class="empty">Keine Verträge vorhanden.</div>
+  }
+
+  @for (contract of contracts; track contract.id) {
+    <mat-card class="contract-card" (click)="openContract(contract)">
+      <mat-card-header>
+        <mat-card-title>{{ contract.contractNumber }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p><strong>Gesamtprämie:</strong> {{ contract.totalMonthlyPremium | number:'1.2-2' }} € / Monat</p>
+      </mat-card-content>
+    </mat-card>
+  }
+</div>

@@ -26,7 +26,7 @@ public class ContractController {
         this.tariffService = tariffService;
     }
 
-    @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get all contracts", description = "Retrieve all contracts")
     @ApiResponse(
             responseCode = "200",
