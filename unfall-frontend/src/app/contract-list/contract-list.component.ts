@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContractApiService } from '../core/services/contract-api.service';
-import { Contract } from '../core/models/contract.model';
+import { Contract, coverageLabel, CoverageType } from '../core/models/contract.model';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import {DecimalPipe} from '@angular/common';
 import {MatButton} from '@angular/material/button';
@@ -25,6 +25,7 @@ export class ContractListComponent implements OnInit {
 
   contracts: Contract[] = [];
   loading = false;
+  coverageLabel = coverageLabel;
 
   ngOnInit(): void {
     this.loadContracts();

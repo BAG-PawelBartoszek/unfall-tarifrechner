@@ -1,0 +1,90 @@
+
+.contract-list-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.contract-card {
+  margin-bottom: 20px;
+  padding: 16px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.contract-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.contract-card mat-card-content {
+  padding: 16px 0;
+}
+
+.contract-card mat-card-content p {
+  margin: 8px 0;
+}
+
+.persons-section {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.persons-section h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+}
+
+.person-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.person-item:last-child {
+  border-bottom: none;
+}
+
+.person-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.person-premium {
+  color: #666;
+  font-size: 13px;
+}
+
+.coverages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.coverage-badge {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.loading, .empty {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}

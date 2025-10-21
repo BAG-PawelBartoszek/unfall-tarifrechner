@@ -22,6 +22,21 @@
       </mat-card-header>
       <mat-card-content>
         <p><strong>Gesamtprämie:</strong> {{ contract.totalMonthlyPremium | number:'1.2-2' }} € / Monat</p>
+
+        <div class="persons-section">
+          <h4>Versicherte Personen ({{ contract.persons.length }})</h4>
+          @for (person of contract.persons; track person.id) {
+            <div class="person-item">
+              <span class="person-name">{{ person.firstName }} {{ person.lastName }}</span>
+              <span class="person-premium">({{ person.monthlyPremium | number:'1.2-2' }} € / Monat)</span>
+              <div class="coverages">
+                @for (coverage of person.coverages; track coverage.id) {
+                  <span class="coverage-badge">{{ coverageLabel(coverage.type) }}</span>
+                }
+              </div>
+            </div>
+          }
+        </div>
       </mat-card-content>
     </mat-card>
   }
