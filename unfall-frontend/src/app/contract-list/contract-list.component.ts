@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContractApiService } from '../core/services/contract-api.service';
-import { Contract, coverageLabel, CoverageType } from '../core/models/contract.model';
+import { Contract, coverageLabel } from '../core/models/contract.model';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import {DecimalPipe} from '@angular/common';
 import {MatButton} from '@angular/material/button';
