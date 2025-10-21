@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: ./unfall-backend
+      dockerfile: Dockerfile
+    image: unfall-backend:latest
+    container_name: unfall-backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - h2-data:/data/h2
+    networks:
+      - unfall-network
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:h2:file:/data/h2/unfall-db;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
+      - SERVER_PORT=8080
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  frontend:
+    build:
+      context: ./unfall-frontend
+      dockerfile: Dockerfile
+    image: unfall-frontend:latest
+    container_name: unfall-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - unfall-network
+    environment:
+      - API_BASE_URL=/api
+
+volumes:
+  h2-data:
+    driver: local
+
+networks:
+  unfall-network:
+    driver: bridge
