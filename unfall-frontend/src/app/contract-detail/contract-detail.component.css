@@ -1,0 +1,36 @@
+.contract-detail-container {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.person-card {
+  margin: 16px 0;
+  padding: 16px;
+}
+
+.person-fields {
+  display: flex;
+  gap: 16px;
+}
+
+.coverage-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+}
+
+h3, h4 {
+  margin: 16px 0 8px 0;
+}

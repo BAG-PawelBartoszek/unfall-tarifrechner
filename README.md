@@ -25,24 +25,55 @@ Jede Person kostet grundsätzlich 5,-€ Prämie. Die Pfefferminzia versichert f
   * Prämie 2,25€ mtl.
 
 ### Lösungsansatz
-* Wir legen das Projekt unter Berücksichtigung technischer Vorgaben auf grüner Wiese an.
-* Wir legen das Datenmodell an.
-* Wir schreiben einen Service, welcher die Tarifierung eines Unfallvertrages implementiert.
-* Wir entwerfen eine Nutzeroberfläche zur Eingabe und Anzeige der Daten.
+Die Anwendung wird als **Multi-Module Maven-Projekt** mit zwei Hauptmodulen aufgebaut:
+
+#### Backend-Modul (`unfall-backend`)
+* REST-Service mit Spring Boot
+* Layered Architecture:
+  * **Domain**: JPA-Entities (Contract, Person, Coverage, CoverageType)
+  * **Repository**: Spring Data JPA Repositories für Datenbankzugriff
+  * **Service**: Business Logic (TariffService für Prämienkalkulation)
+  * **Controller**: REST-Endpunkte (ContractController)
+* H2 In-Memory-Datenbank zur Persistierung
+* OpenAPI/Swagger UI zur API-Dokumentation
+* CORS-Konfiguration für Frontend-Zugriff
+
+#### Frontend-Modul (`unfall-frontend`)
+* Single Page Application (SPA) mit Angular
+* Component-basierte Architektur:
+  * **ContractListComponent**: Übersicht aller Verträge mit Personen und Leistungsarten
+  * **ContractDetailComponent**: Formular zum Anlegen/Bearbeiten von Verträgen
+  * **ContractApiService**: REST-Client für Backend-Kommunikation
+* Reactive Forms für Datenerfassung
+* Angular Material für UI-Komponenten
+* Routing für Navigation zwischen Listen- und Detailansicht
+
+#### Kommunikation
+* Das Frontend kommuniziert über **HTTP/REST** mit dem Backend
+* JSON als Austauschformat
+* API-Base-URL konfigurierbar via Injection Token
+
+#### Build & Deployment
+* Maven orchestriert den Build beider Module
+* Frontend-Maven-Plugin integriert Angular-Build in Maven-Lifecycle
+* Docker-Container für beide Module mit docker-compose orchestriert
 
 ### Technische Vorgaben
 * Java 25
 * REST Service
-* Spring Boot 2.4.1
-* Maven
+* Spring Boot 3.5.0
+* Maven 3.9+
 * JUnit 5
-* JPA
-* H2
-* Lombok
-* Swagger
-* Angular 20
-* Angular Material
+* JPA (Jakarta Persistence)
+* H2 Database
+* Swagger / OpenAPI (springdoc-openapi 2.8.13)
+* Angular 20.3.0
+* Angular Material 20.2.9
+* Node.js 22.20.0
+* npm 10.9.3
+* TypeScript 5.9.2
 
 ### Mock up
 Die Oberfläche kann sich am folgenden Mockup orientieren:
+
 ![Mockup](assets/mockup.png)
