@@ -1,6 +1,7 @@
 package com.pfefferminzia.unfall.domain;
 
 import jakarta.persistence.*;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class Contract {
     }
 
     public void calculateTotalMonthlyPremium() {
-        this.totalMonthlyPremium = round2(this.persons.stream().mapToDouble(Person::getMonthlyPremium).sum());
+        throw new NotImplementedException( "Implementiere mich!!!");
     }
 
     private double round2(double v) {
